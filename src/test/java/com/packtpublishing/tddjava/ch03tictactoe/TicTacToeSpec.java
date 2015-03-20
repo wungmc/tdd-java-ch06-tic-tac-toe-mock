@@ -48,4 +48,51 @@ public class TicTacToeSpec {
         assertEquals('O', ticTacToe.nextPlayer());
     }
 
+    @Test
+    public void whenPlayThenNoWinner() {
+        String actual = ticTacToe.play(1, 1);
+        assertEquals("No winner", actual);
+    }
+
+    @Test
+    public void whenPlayAndWholeHorizontalLineThenWinner() {
+        ticTacToe.play(1, 1); // X
+        ticTacToe.play(1, 2); // Y
+        ticTacToe.play(2, 1); // X
+        ticTacToe.play(2, 2); // Y
+        String actual = ticTacToe.play(3, 1); // X
+        assertEquals("X is the winner", actual);
+    }
+
+    @Test
+    public void whenPlayAndWholeVerticalLineThenWinner() {
+        ticTacToe.play(2, 1); // X
+        ticTacToe.play(1, 1); // Y
+        ticTacToe.play(3, 1); // X
+        ticTacToe.play(1, 2); // Y
+        ticTacToe.play(2, 2); // X
+        String actual = ticTacToe.play(1, 3); // y
+        assertEquals("O is the winner", actual);
+    }
+
+    @Test
+    public void whenPlayAndTopBottomDiagonalLineThenWinner() {
+        ticTacToe.play(1, 1); // X
+        ticTacToe.play(1, 2); // Y
+        ticTacToe.play(2, 2); // X
+        ticTacToe.play(1, 3); // Y
+        String actual = ticTacToe.play(3, 3); // y
+        assertEquals("X is the winner", actual);
+    }
+
+    @Test
+    public void whenPlayAndBottomTopDiagonalLineThenWinner() {
+        ticTacToe.play(1, 3); // X
+        ticTacToe.play(1, 1); // Y
+        ticTacToe.play(2, 2); // X
+        ticTacToe.play(1, 2); // Y
+        String actual = ticTacToe.play(3, 1); // y
+        assertEquals("X is the winner", actual);
+    }
+
 }
