@@ -2,6 +2,7 @@ package com.packtpublishing.tddjava.ch03tictactoe.mongo;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.WriteResult;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 
@@ -18,12 +19,22 @@ public class TickTackToeCollection {
         mongoCollection = new Jongo(db).getCollection(collectionName);
     }
 
-    public void saveMove(TickTackToeBean bean) {
-        mongoCollection.save(bean);
+    public boolean saveMove(TickTackToeBean bean) {
+        try {
+            mongoCollection.save(bean);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void drop() {
-        mongoCollection.drop();
+    public boolean drop() {
+        try {
+            mongoCollection.drop();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
