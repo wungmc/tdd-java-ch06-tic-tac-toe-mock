@@ -1,4 +1,4 @@
-package com.packtpublishing.tddjava.ch03tictactoe;
+package com.packtpublishing.tddjava.ch03tictactoe.mongo;
 
 import org.jongo.marshall.jackson.oid.Id;
 

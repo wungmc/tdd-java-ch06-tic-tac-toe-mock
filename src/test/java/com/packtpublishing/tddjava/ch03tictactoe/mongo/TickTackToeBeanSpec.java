@@ -1,4 +1,4 @@
-package com.packtpublishing.tddjava.ch03tictactoe;
+package com.packtpublishing.tddjava.ch03tictactoe.mongo;
 
 import org.junit.Before;
 import org.junit.Test;
