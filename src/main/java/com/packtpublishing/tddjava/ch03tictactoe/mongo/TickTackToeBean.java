@@ -2,14 +2,12 @@ package com.packtpublishing.tddjava.ch03tictactoe.mongo;
 
 import org.jongo.marshall.jackson.oid.Id;
 
-import java.util.UUID;
-
 public class TickTackToeBean {
 
     @Id
-    private UUID id;
-    public UUID getId() {
-        return id;
+    private int turn;
+    public int getTurn() {
+        return turn;
     }
 
     private int x;
@@ -28,8 +26,8 @@ public class TickTackToeBean {
     }
 
     public TickTackToeBean() { }
-    public TickTackToeBean(UUID id, int x, int y, char player) {
-        this.id = id;
+    public TickTackToeBean(int turn, int x, int y, char player) {
+        this.turn = turn;
         this.x = x;
         this.y = y;
         this.player = player;

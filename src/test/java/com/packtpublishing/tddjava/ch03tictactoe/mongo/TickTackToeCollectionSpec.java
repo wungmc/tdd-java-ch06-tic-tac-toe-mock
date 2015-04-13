@@ -38,9 +38,17 @@ public class TickTackToeCollectionSpec {
     public void whenSaveMoveThenInvokeMongoCollectionSave() {
         MongoCollection mongoCollection = mock(MongoCollection.class);
         collection.mongoCollection = mongoCollection;
-        TickTackToeBean bean = new TickTackToeBean(UUID.randomUUID(), 2, 1, 'Y');
+        TickTackToeBean bean = new TickTackToeBean(3, 2, 1, 'Y');
         collection.saveMove(bean);
         verify(mongoCollection, times(1)).save(bean);
+    }
+
+    @Test
+    public void whenDropThenInvokeMongoCollectionDrop() {
+        MongoCollection mongoCollection = mock(MongoCollection.class);
+        collection.mongoCollection = mongoCollection;
+        collection.drop();
+        verify(mongoCollection, times(1)).drop();
     }
 
 }

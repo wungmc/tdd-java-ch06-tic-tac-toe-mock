@@ -22,4 +22,8 @@ public class TickTackToeCollection {
         mongoCollection.save(bean);
     }
 
+    public void drop() {
+        mongoCollection.drop();
+    }
+
 }
