@@ -18,3 +18,12 @@ dependencies {
     // TODO: Add to book
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.+'
 }
+
+//TODO: Add to book
+test {
+    include '**/*Spec.class'
+}
+
+task testInteg(type: Test) {
+    include '**/*Integ.class'
+}

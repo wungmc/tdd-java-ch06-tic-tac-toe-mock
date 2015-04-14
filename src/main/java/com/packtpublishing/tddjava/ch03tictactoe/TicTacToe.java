@@ -12,6 +12,8 @@ public class TicTacToe {
     private Character[][] board = {{'\0', '\0', '\0'}, {'\0', '\0', '\0'}, {'\0', '\0', '\0'}};
     private char lastPlayer = '\0';
     private static final int SIZE = 3;
+    public static final String NO_WINNER = "No winner";
+    public static final String RESULT_DRAW = "The result is draw";
     // TODO: Add to book
     private TickTackToeCollection ticTacToeCollection;
     // TODO: Add to book
@@ -21,12 +23,14 @@ public class TicTacToe {
 
     // TODO: Add to book
     public TicTacToe() throws UnknownHostException {
-        new TicTacToe(new TickTackToeCollection());
+        this(new TickTackToeCollection());
     }
     // TODO: Add to book
     protected TicTacToe(TickTackToeCollection collection) {
         ticTacToeCollection = collection;
-        ticTacToeCollection.drop();
+        if (!ticTacToeCollection.drop()) {
+            throw new RuntimeException("Dropping DB collection failed");
+        }
     }
 
     public String play(int x, int y) {
@@ -41,9 +45,9 @@ public class TicTacToe {
         if (isWin(x, y)) {
             return lastPlayer + " is the winner";
         } else if (isDraw()) {
-            return "The result is draw";
+            return RESULT_DRAW;
         } else {
-            return "No winner";
+            return NO_WINNER;
         }
     }
 
@@ -67,7 +71,9 @@ public class TicTacToe {
         } else {
             board[bean.getX() - 1][bean.getY() - 1] = lastPlayer;
             // TODO: Add to book
-            getTicTacToeCollection().saveMove(bean);
+            if (!getTicTacToeCollection().saveMove(bean)) {
+                throw new RuntimeException("Saving to DB failed");
+            }
         }
     }
 

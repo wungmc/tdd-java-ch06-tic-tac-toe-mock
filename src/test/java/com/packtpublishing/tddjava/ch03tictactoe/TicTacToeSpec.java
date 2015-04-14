@@ -6,15 +6,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.net.UnknownHostException;
 import static org.junit.Assert.*;
 // TODO: Add to book
 import static org.mockito.Mockito.*;
+// TODO: Add to book
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TicTacToeSpec {
@@ -28,6 +25,10 @@ public class TicTacToeSpec {
     public final void before() throws UnknownHostException {
         // TODO: Add to book
         collection = mock(TickTackToeCollection.class);
+        // TODO: Add to book
+        doReturn(true).when(collection).drop();
+        // TODO: Add to book
+        doReturn(true).when(collection).saveMove(any(TickTackToeBean.class));
 //        ticTacToe = new TicTacToe();
         // TODO: Add to book
         ticTacToe = new TicTacToe(collection);
@@ -139,6 +140,14 @@ public class TicTacToeSpec {
     }
 
     @Test
+    public void whenPlayAndSaveReturnsFalseThenThrowException() {
+        doReturn(false).when(collection).saveMove(any(TickTackToeBean.class));
+        TickTackToeBean move = new TickTackToeBean(1, 1, 3, 'X');
+        exception.expect(RuntimeException.class);
+        ticTacToe.play(move.getX(), move.getY());
+    }
+
+    @Test
     public void whenPlayInvokedMultipleTimesThenTurnIncreases() {
         TickTackToeBean move1 = new TickTackToeBean(1, 1, 1, 'X');
         ticTacToe.play(move1.getX(), move1.getY());
@@ -151,6 +160,13 @@ public class TicTacToeSpec {
     @Test
     public void whenInstantiatedThenCollectionDrop() {
         verify(collection, times(1)).drop();
+    }
+
+    @Test
+    public void whenInstantiatedAndDropReturnsFalseThenThrowException() throws UnknownHostException {
+        doReturn(false).when(collection).drop();
+        exception.expect(RuntimeException.class);
+        new TicTacToe(collection);
     }
 
 }
