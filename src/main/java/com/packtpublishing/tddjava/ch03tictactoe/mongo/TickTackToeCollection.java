@@ -10,7 +10,10 @@ import java.net.UnknownHostException;
 
 public class TickTackToeCollection {
 
-    protected static MongoCollection mongoCollection;
+    private MongoCollection mongoCollection;
+    protected MongoCollection getMongoCollection() {
+        return mongoCollection;
+    }
     private static final String dbName = "tick-tack-toe";
     private static final String collectionName = "game";
 
@@ -21,7 +24,7 @@ public class TickTackToeCollection {
 
     public boolean saveMove(TickTackToeBean bean) {
         try {
-            mongoCollection.save(bean);
+            getMongoCollection().save(bean);
             return true;
         } catch (Exception e) {
             return false;
@@ -30,7 +33,7 @@ public class TickTackToeCollection {
 
     public boolean drop() {
         try {
-            mongoCollection.drop();
+            getMongoCollection().drop();
             return true;
         } catch (Exception e) {
             return false;
