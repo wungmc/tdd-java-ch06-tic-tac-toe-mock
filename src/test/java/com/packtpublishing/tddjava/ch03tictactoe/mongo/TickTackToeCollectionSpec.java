@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 // TODO: Add to book
 public class TickTackToeCollectionSpec {
 
-    private static TickTackToeCollection collection;
-    MongoCollection mongoCollection;
+    private TickTackToeCollection collection;
+    private MongoCollection mongoCollection;
     private static final String dbName = "tick-tack-toe";
     private static final String collectionName = "game";
     private TickTackToeBean bean;
