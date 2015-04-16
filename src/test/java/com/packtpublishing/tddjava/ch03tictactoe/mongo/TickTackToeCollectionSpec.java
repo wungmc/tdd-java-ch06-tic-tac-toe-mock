@@ -9,7 +9,6 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO: Add to book
-// TODO: Use spy
 public class TickTackToeCollectionSpec {
 
     private static TickTackToeCollection collection;
