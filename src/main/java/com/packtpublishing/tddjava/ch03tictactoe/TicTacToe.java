@@ -1,47 +1,18 @@
 package com.packtpublishing.tddjava.ch03tictactoe;
 
-import com.packtpublishing.tddjava.ch03tictactoe.mongo.TickTackToeBean;
-import com.packtpublishing.tddjava.ch03tictactoe.mongo.TickTackToeCollection;
-
-import java.net.UnknownHostException;
-
 public class TicTacToe {
 
-    // TODO: Add to book
-    private int turn = 0;
     private Character[][] board = {{'\0', '\0', '\0'}, {'\0', '\0', '\0'}, {'\0', '\0', '\0'}};
     private char lastPlayer = '\0';
     private static final int SIZE = 3;
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
-    // TODO: Add to book
-    private TickTackToeCollection ticTacToeCollection;
-    // TODO: Add to book
-    protected TickTackToeCollection getTicTacToeCollection() {
-        return ticTacToeCollection;
-    }
-
-    // TODO: Add to book
-    public TicTacToe() throws UnknownHostException {
-        this(new TickTackToeCollection());
-    }
-    // TODO: Add to book
-    protected TicTacToe(TickTackToeCollection collection) {
-        ticTacToeCollection = collection;
-        if (!ticTacToeCollection.drop()) {
-            throw new RuntimeException("Dropping DB collection failed");
-        }
-    }
 
     public String play(int x, int y) {
         checkAxis(x);
         checkAxis(y);
         lastPlayer = nextPlayer();
-//        setBox(x, y, lastPlayer);
-        // TODO: Add to book
-//        setBox(new TickTackToeBean(1, x, y, lastPlayer));
-        // TODO: Add to book
-        setBox(new TickTackToeBean(++turn, x, y, lastPlayer));
+        setBox(x, y, lastPlayer);
         if (isWin(x, y)) {
             return lastPlayer + " is the winner";
         } else if (isDraw()) {
@@ -64,16 +35,11 @@ public class TicTacToe {
         }
     }
 
-    // TODO: Add refactoring to TickTackToeBean argument
-    private void setBox(TickTackToeBean bean) {
-        if (board[bean.getX() - 1][bean.getY() - 1] != '\0') {
+    private void setBox(int x, int y, char lastPlayer) {
+        if (board[x - 1][y - 1] != '\0') {
             throw new RuntimeException("Box is occupied");
         } else {
-            board[bean.getX() - 1][bean.getY() - 1] = lastPlayer;
-            // TODO: Add to book
-            if (!getTicTacToeCollection().saveMove(bean)) {
-                throw new RuntimeException("Saving to DB failed");
-            }
+            board[x - 1][y - 1] = lastPlayer;
         }
     }
 

@@ -1,7 +1,5 @@
 package com.packtpublishing.tddjava.ch03tictactoe;
 
-import com.packtpublishing.tddjava.ch03tictactoe.mongo.TickTackToeBean;
-import com.packtpublishing.tddjava.ch03tictactoe.mongo.TickTackToeCollection;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,29 +7,16 @@ import org.junit.rules.ExpectedException;
 
 import java.net.UnknownHostException;
 import static org.junit.Assert.*;
-// TODO: Add to book
-import static org.mockito.Mockito.*;
-// TODO: Add to book
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TicTacToeSpec {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
     private TicTacToe ticTacToe;
-    private TickTackToeCollection collection;
 
     @Before
     public final void before() throws UnknownHostException {
-        // TODO: Add to book
-        collection = mock(TickTackToeCollection.class);
-        // TODO: Add to book
-        doReturn(true).when(collection).drop();
-        // TODO: Add to book
-        doReturn(true).when(collection).saveMove(any(TickTackToeBean.class));
-//        ticTacToe = new TicTacToe();
-        // TODO: Add to book
-        ticTacToe = new TicTacToe(collection);
+        ticTacToe = new TicTacToe();
     }
 
     @Test
@@ -124,49 +109,6 @@ public class TicTacToeSpec {
         ticTacToe.play(3, 3);
         String actual = ticTacToe.play(3, 2);
         assertEquals("The result is draw", actual);
-    }
-
-    // TODO: Add to book until the end
-    @Test
-    public void whenInstantiatedThenSetCollection() throws UnknownHostException {
-        assertThat(ticTacToe.getTicTacToeCollection()).isInstanceOf(TickTackToeCollection.class);
-    }
-
-    @Test
-    public void whenPlayThenSaveMoveIsInvoked() {
-        TickTackToeBean move = new TickTackToeBean(1, 1, 3, 'X');
-        ticTacToe.play(move.getX(), move.getY());
-        verify(collection, times(1)).saveMove(move);
-    }
-
-    @Test
-    public void whenPlayAndSaveReturnsFalseThenThrowException() {
-        doReturn(false).when(collection).saveMove(any(TickTackToeBean.class));
-        TickTackToeBean move = new TickTackToeBean(1, 1, 3, 'X');
-        exception.expect(RuntimeException.class);
-        ticTacToe.play(move.getX(), move.getY());
-    }
-
-    @Test
-    public void whenPlayInvokedMultipleTimesThenTurnIncreases() {
-        TickTackToeBean move1 = new TickTackToeBean(1, 1, 1, 'X');
-        ticTacToe.play(move1.getX(), move1.getY());
-        verify(collection, times(1)).saveMove(move1);
-        TickTackToeBean move2 = new TickTackToeBean(2, 1, 2, 'O');
-        ticTacToe.play(move2.getX(), move2.getY());
-        verify(collection, times(1)).saveMove(move2);
-    }
-
-    @Test
-    public void whenInstantiatedThenCollectionDrop() {
-        verify(collection, times(1)).drop();
-    }
-
-    @Test
-    public void whenInstantiatedAndDropReturnsFalseThenThrowException() throws UnknownHostException {
-        doReturn(false).when(collection).drop();
-        exception.expect(RuntimeException.class);
-        new TicTacToe(collection);
     }
 
 }
