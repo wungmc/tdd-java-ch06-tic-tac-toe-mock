@@ -26,6 +26,7 @@ public class TicTacToeSpec {
     public final void before() throws UnknownHostException {
     	collection = mock(TicTacToeCollection.class);
 		doReturn(true).when(collection).saveMove(any(TicTacToeBean.class));
+		doReturn(true).when(collection).drop();
         ticTacToe = new TicTacToe(collection);
     }
 
@@ -158,6 +159,13 @@ public class TicTacToeSpec {
 	@Test
 	public void whenInstantiatedThenDropIsInvoked() {
     	verify(collection).drop();
+	}
+	
+	@Test
+	public void whenDropReturnFalseThenThrowRuntimeException() {
+		doReturn(false).when(collection).drop();
+		exception.expect(RuntimeException.class);
+		ticTacToe = new TicTacToe(collection);
 	}
 	
 }

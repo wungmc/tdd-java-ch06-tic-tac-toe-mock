@@ -23,7 +23,9 @@ public class TicTacToe {
 	
 	public TicTacToe(TicTacToeCollection collection) {
     	this.ticTacToeCollection = collection;
-    	ticTacToeCollection.drop();
+    	if (!ticTacToeCollection.drop()) {
+    		throw new RuntimeException("drop fail");
+		}
 	}
 	
 	public TicTacToeCollection getTicTacToeCollection() {
