@@ -20,11 +20,17 @@ import static org.mockito.Mockito.*;
 public class TicTacToeCollectionSpec {
 	
 	TicTacToeCollection collection;
+	MongoCollection mongoCollection;
+	TicTacToeBean bean;
+	
 	
 	@Before
 	public void before() throws UnknownHostException {
 		collection = spy(TicTacToeCollection.class);
+	 	mongoCollection = mock(MongoCollection.class);
+		bean = new TicTacToeBean(1, 2, 1, 'X');
 	}
+	
 	
 	@Test
 	public void whenInstantiatedThenMongoHasDbNameTicTacToe() {
@@ -41,10 +47,8 @@ public class TicTacToeCollectionSpec {
 		// mock 和 spy 的区别：
 		// mock 返回一个完全模拟的对象；
 		// spy 返回一个监视对象，默认使用对象的实际方法。
-		MongoCollection mongoCollection = mock(MongoCollection.class);
 		doReturn(mongoCollection).when(collection).getMongoCollection();
 		
-		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
 		collection.saveMove(bean);
 		// 验证 mongoCollection 是否调用了 save 1次，且参数是 bean
 		verify(mongoCollection, times(1)).save(bean);
@@ -52,10 +56,8 @@ public class TicTacToeCollectionSpec {
 	
 	@Test
 	public void whenSaveMoveThenReturnTrue() {
-		MongoCollection mongoCollection = mock(MongoCollection.class);
 		doReturn(mongoCollection).when(collection).getMongoCollection();
 		
-		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
 		assertTrue(collection.saveMove(bean));
 	}
 	
