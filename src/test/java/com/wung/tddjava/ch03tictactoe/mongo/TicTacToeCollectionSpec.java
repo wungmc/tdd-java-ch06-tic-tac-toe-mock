@@ -3,14 +3,14 @@
  */
 package com.wung.tddjava.ch03tictactoe.mongo;
 
+import com.mongodb.MongoException;
 import org.jongo.MongoCollection;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.UnknownHostException;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -59,6 +59,13 @@ public class TicTacToeCollectionSpec {
 		doReturn(mongoCollection).when(collection).getMongoCollection();
 		
 		assertTrue(collection.saveMove(bean));
+	}
+	
+	@Test
+	public void givenExceptionWhenSaveMoveThenReturnFalse() {
+		doThrow(new MongoException("bla")).when(mongoCollection).save(any(TicTacToeBean.class));
+		doReturn(mongoCollection).when(collection).getMongoCollection();
+		assertFalse(collection.saveMove(bean));
 	}
 	
 }

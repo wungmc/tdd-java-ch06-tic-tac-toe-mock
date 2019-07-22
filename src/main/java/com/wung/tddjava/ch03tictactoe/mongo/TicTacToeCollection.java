@@ -27,8 +27,12 @@ public class TicTacToeCollection {
 	}
 	
 	public boolean saveMove(TicTacToeBean bean) {
-		getMongoCollection().save(bean);
-		return true;
+		try {
+			getMongoCollection().save(bean);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 	
 }
