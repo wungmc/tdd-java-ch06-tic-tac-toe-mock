@@ -1,4 +1,4 @@
-package com.packtpublishing.tddjava.ch03tictactoe;
+package com.wung.tddjava.ch03tictactoe;
 
 public class TicTacToe {
 
