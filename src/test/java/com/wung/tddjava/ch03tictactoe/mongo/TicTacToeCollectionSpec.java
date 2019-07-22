@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.net.UnknownHostException;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -47,6 +48,15 @@ public class TicTacToeCollectionSpec {
 		collection.saveMove(bean);
 		// 验证 mongoCollection 是否调用了 save 1次，且参数是 bean
 		verify(mongoCollection, times(1)).save(bean);
+	}
+	
+	@Test
+	public void whenSaveMoveThenReturnTrue() {
+		MongoCollection mongoCollection = mock(MongoCollection.class);
+		doReturn(mongoCollection).when(collection).getMongoCollection();
+		
+		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
+		assertTrue(collection.saveMove(bean));
 	}
 	
 }
