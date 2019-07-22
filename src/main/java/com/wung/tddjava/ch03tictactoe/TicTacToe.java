@@ -1,5 +1,9 @@
 package com.wung.tddjava.ch03tictactoe;
 
+import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeCollection;
+
+import java.net.UnknownHostException;
+
 public class TicTacToe {
 
     private Character[][] board = {{'\0', '\0', '\0'}, {'\0', '\0', '\0'}, {'\0', '\0', '\0'}};
@@ -7,8 +11,18 @@ public class TicTacToe {
     private static final int SIZE = 3;
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
-
-    public String play(int x, int y) {
+    
+    private TicTacToeCollection ticTacToeCollection;
+    
+    public TicTacToe() throws UnknownHostException {
+    	ticTacToeCollection = new TicTacToeCollection();
+	}
+	
+	public TicTacToeCollection getTicTacToeCollection() {
+		return ticTacToeCollection;
+	}
+	
+	public String play(int x, int y) {
         checkAxis(x);
         checkAxis(y);
         lastPlayer = nextPlayer();

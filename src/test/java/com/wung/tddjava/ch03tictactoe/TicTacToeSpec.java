@@ -1,9 +1,12 @@
 package com.wung.tddjava.ch03tictactoe;
 
+import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeCollection;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +14,11 @@ public class TicTacToeSpec {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+    
     private TicTacToe ticTacToe;
 
     @Before
-    public final void before() {
+    public final void before() throws UnknownHostException {
         ticTacToe = new TicTacToe();
     }
 
@@ -110,4 +114,9 @@ public class TicTacToeSpec {
         assertEquals("The result is draw", actual);
     }
 
+    @Test
+	public void whenInstantiatedThenSetCollection() {
+    	assertNotNull(ticTacToe.getTicTacToeCollection());
+	}
+	
 }
