@@ -3,3 +3,6 @@ gradlew.bat
 *.iml
 .idea
 gradle
+out
+build
+.gradle
