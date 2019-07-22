@@ -13,3 +13,18 @@ dependencies {
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.+'
 }
+
+// 单元测试运行速度快，应该频繁运行
+// 集成测试运行速度慢，偶尔运行
+// 所以需要将这两种测试分离，简单的办法就是通过类名后缀分离，如下所示
+// 运行命令：gradle test 或者 gradle testInteg
+
+// 单元测试都是以 Spec 结尾的类
+test {
+    include '**/*Spec.class'
+}
+
+// 集成测试都是以 Integ 结尾的类
+task testInteg(type: Test) {
+    include '**/*Integ.class'
+}
