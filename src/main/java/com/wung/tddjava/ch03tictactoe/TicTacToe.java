@@ -31,7 +31,10 @@ public class TicTacToe {
         checkAxis(x);
         checkAxis(y);
         lastPlayer = nextPlayer();
-        setBox(x, y, lastPlayer);
+        
+        TicTacToeBean bean = new TicTacToeBean(1, x, y, lastPlayer);
+        setBox(bean);
+        
         if (isWin(x, y)) {
             return lastPlayer + " is the winner";
         } else if (isDraw()) {
@@ -54,13 +57,12 @@ public class TicTacToe {
         }
     }
 
-    private void setBox(int x, int y, char lastPlayer) {
-        if (board[x - 1][y - 1] != '\0') {
+    private void setBox(TicTacToeBean bean) {
+        if (board[bean.getX() - 1][bean.getY() - 1] != '\0') {
             throw new RuntimeException("Box is occupied");
         } else {
-            board[x - 1][y - 1] = lastPlayer;
+            board[bean.getX() - 1][bean.getY() - 1] = lastPlayer;
             // 保存
-			TicTacToeBean bean = new TicTacToeBean(1, x, y, lastPlayer);
 			ticTacToeCollection.saveMove(bean);
         }
     }
