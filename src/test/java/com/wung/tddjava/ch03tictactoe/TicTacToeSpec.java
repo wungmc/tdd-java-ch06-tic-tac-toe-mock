@@ -1,25 +1,30 @@
 package com.wung.tddjava.ch03tictactoe;
 
+import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeBean;
 import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeCollection;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class TicTacToeSpec {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
+    private TicTacToeCollection collection;
     private TicTacToe ticTacToe;
 
     @Before
     public final void before() throws UnknownHostException {
-        ticTacToe = new TicTacToe();
+    	collection = mock(TicTacToeCollection.class);
+        ticTacToe = new TicTacToe(collection);
     }
 
     @Test
@@ -117,6 +122,14 @@ public class TicTacToeSpec {
     @Test
 	public void whenInstantiatedThenSetCollection() {
     	assertNotNull(ticTacToe.getTicTacToeCollection());
+	}
+	
+	@Test
+	public void whenPlayThenSaveMoveIsInvoked() {
+		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
+		ticTacToe.play(bean.getX(), bean.getY());
+		Mockito.verify(collection).saveMove(bean);
+		
 	}
 	
 }

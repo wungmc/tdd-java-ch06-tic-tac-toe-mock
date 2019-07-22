@@ -1,5 +1,6 @@
 package com.wung.tddjava.ch03tictactoe;
 
+import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeBean;
 import com.wung.tddjava.ch03tictactoe.mongo.TicTacToeCollection;
 
 import java.net.UnknownHostException;
@@ -15,7 +16,11 @@ public class TicTacToe {
     private TicTacToeCollection ticTacToeCollection;
     
     public TicTacToe() throws UnknownHostException {
-    	ticTacToeCollection = new TicTacToeCollection();
+    	this(new TicTacToeCollection());
+	}
+	
+	public TicTacToe(TicTacToeCollection collection) {
+    	this.ticTacToeCollection = collection;
 	}
 	
 	public TicTacToeCollection getTicTacToeCollection() {
@@ -54,6 +59,9 @@ public class TicTacToe {
             throw new RuntimeException("Box is occupied");
         } else {
             board[x - 1][y - 1] = lastPlayer;
+            // 保存
+			TicTacToeBean bean = new TicTacToeBean(1, x, y, lastPlayer);
+			ticTacToeCollection.saveMove(bean);
         }
     }
 
