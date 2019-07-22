@@ -67,4 +67,14 @@ public class TicTacToeBean {
 	public int hashCode() {
 		return Objects.hash(turn, x, y, player);
 	}
+	
+	@Override
+	public String toString() {
+		return "TicTacToeBean{" +
+				"turn=" + turn +
+				", x=" + x +
+				", y=" + y +
+				", player=" + player +
+				'}';
+	}
 }

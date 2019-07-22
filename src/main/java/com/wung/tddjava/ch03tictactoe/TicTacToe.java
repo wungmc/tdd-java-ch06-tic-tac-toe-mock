@@ -13,6 +13,8 @@ public class TicTacToe {
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
     
+    private int turn = 0;
+    
     private TicTacToeCollection ticTacToeCollection;
     
     public TicTacToe() throws UnknownHostException {
@@ -32,7 +34,7 @@ public class TicTacToe {
         checkAxis(y);
         lastPlayer = nextPlayer();
         
-        TicTacToeBean bean = new TicTacToeBean(1, x, y, lastPlayer);
+        TicTacToeBean bean = new TicTacToeBean(++turn, x, y, lastPlayer);
         setBox(bean);
         
         if (isWin(x, y)) {

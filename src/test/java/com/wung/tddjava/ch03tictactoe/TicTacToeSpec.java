@@ -12,8 +12,7 @@ import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class TicTacToeSpec {
 
@@ -143,6 +142,17 @@ public class TicTacToeSpec {
 		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
 		ticTacToe.play(bean.getX(), bean.getY());
 		
+	}
+	
+	@Test
+	public void whenPlayInvokedMultipleTimesThenTurnIncrease() {
+		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
+		ticTacToe.play(bean.getX(), bean.getY());
+		verify(collection, times(1)).saveMove(bean);
+		
+		TicTacToeBean bean2 = new TicTacToeBean(2, 2, 2, 'O');
+		ticTacToe.play(bean2.getX(), bean2.getY());
+		verify(collection, times(1)).saveMove(bean2);
 	}
 	
 }
