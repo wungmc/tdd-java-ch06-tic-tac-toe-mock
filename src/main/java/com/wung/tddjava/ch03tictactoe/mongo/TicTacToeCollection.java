@@ -26,4 +26,8 @@ public class TicTacToeCollection {
 		mongoCollection = new Jongo(db).getCollection("game");
 	}
 	
+	public void saveMove(TicTacToeBean bean) {
+		getMongoCollection().save(bean);
+	}
+	
 }
