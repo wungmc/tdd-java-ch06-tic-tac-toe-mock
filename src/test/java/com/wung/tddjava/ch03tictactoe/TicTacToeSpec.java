@@ -130,7 +130,7 @@ public class TicTacToeSpec {
 	public void whenPlayThenSaveMoveIsInvoked() {
 		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
 		ticTacToe.play(bean.getX(), bean.getY());
-		Mockito.verify(collection).saveMove(bean);
+		verify(collection).saveMove(bean);
 		
 	}
 	
@@ -153,6 +153,11 @@ public class TicTacToeSpec {
 		TicTacToeBean bean2 = new TicTacToeBean(2, 2, 2, 'O');
 		ticTacToe.play(bean2.getX(), bean2.getY());
 		verify(collection, times(1)).saveMove(bean2);
+	}
+	
+	@Test
+	public void whenInstantiatedThenDropIsInvoked() {
+    	verify(collection).drop();
 	}
 	
 }

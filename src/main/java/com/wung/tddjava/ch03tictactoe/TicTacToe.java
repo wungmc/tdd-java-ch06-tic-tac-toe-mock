@@ -23,6 +23,7 @@ public class TicTacToe {
 	
 	public TicTacToe(TicTacToeCollection collection) {
     	this.ticTacToeCollection = collection;
+    	ticTacToeCollection.drop();
 	}
 	
 	public TicTacToeCollection getTicTacToeCollection() {
