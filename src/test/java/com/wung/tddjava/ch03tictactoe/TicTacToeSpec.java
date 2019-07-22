@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 public class TicTacToeSpec {
@@ -24,6 +26,7 @@ public class TicTacToeSpec {
     @Before
     public final void before() throws UnknownHostException {
     	collection = mock(TicTacToeCollection.class);
+		doReturn(true).when(collection).saveMove(any(TicTacToeBean.class));
         ticTacToe = new TicTacToe(collection);
     }
 
@@ -129,6 +132,16 @@ public class TicTacToeSpec {
 		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
 		ticTacToe.play(bean.getX(), bean.getY());
 		Mockito.verify(collection).saveMove(bean);
+		
+	}
+	
+	@Test
+	public void whenPlayAndSaveMoveReturnFalseThenThrowRuntimeException() {
+    	doReturn(false).when(collection).saveMove(any(TicTacToeBean.class));
+    	exception.expect(RuntimeException.class);
+		
+		TicTacToeBean bean = new TicTacToeBean(1, 2, 1, 'X');
+		ticTacToe.play(bean.getX(), bean.getY());
 		
 	}
 	

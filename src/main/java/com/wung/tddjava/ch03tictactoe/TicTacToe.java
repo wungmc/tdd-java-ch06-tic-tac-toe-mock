@@ -63,7 +63,9 @@ public class TicTacToe {
         } else {
             board[bean.getX() - 1][bean.getY() - 1] = lastPlayer;
             // 保存
-			ticTacToeCollection.saveMove(bean);
+			if (!ticTacToeCollection.saveMove(bean)) {
+				throw new RuntimeException("saveMove fail");
+			}
         }
     }
 
